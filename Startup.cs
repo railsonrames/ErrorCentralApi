@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ErrorCentralApi.Models;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using ErrorCentralApi.Services;
 
 namespace ErrorCentralApi
 {
@@ -29,6 +31,8 @@ namespace ErrorCentralApi
     {
       services.AddDbContext<ErrorCentralDataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("AzureErrorCentralDataBaseServer")));
       services.AddControllers();
+      services.AddAutoMapper(typeof(Startup));
+      services.AddScoped<IErrorService, ErrorService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
