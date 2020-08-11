@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using ErrorCentralApi.Models;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace ErrorCentralApi.Services
 {
@@ -24,60 +23,72 @@ namespace ErrorCentralApi.Services
             return _context.Errors.Find(id);
         }
 
-        public void Archive(Error error)
+        public bool Archive(Error error)
         {
             var err = _context.Errors.FirstOrDefault(e => e.Id == error.Id);
             if (err != null)
             {
                 err.ArchiveRecord = true;
                 _context.SaveChanges();
+                return true;
             }
+            return false;
         }
 
-        public void Delete(Error error)
+        public bool Delete(Error error)
         {
             var err = _context.Errors.FirstOrDefault(e => e.Id == error.Id);
             if (err != null)
             {
                 _context.Errors.Remove(err);
                 _context.SaveChanges();
+                return true;
             }
+            return false;
         }
-
-        public IList<Error> FindByCreatedDate(DateTime date)
+        public bool Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var error = _context.Errors.FirstOrDefault(e => e.Id == id);
+            if(error != null)
+            {
+                _context.Errors.Remove(error);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public IList<Error> FindByDescription(string description)
         {
-            throw new NotImplementedException();
+            return _context.Errors.Where(e => e.Description == description).ToList();
         }
 
-        public IList<Error> FindByEnvironment(string environment)
+        public IList<Error> FindByOrigin(string origin)
         {
-            throw new NotImplementedException();
+            return _context.Errors.Where(e => e.Origin == origin).ToList();
         }
 
         public IList<Error> FindByLevelType(string type)
         {
-            return _context.Errors.Where(e => e.LevelType == type).ToList();
+            return _context.Errors.Where(e => e.LevelType.ToString() == type).ToList();
         }
 
        
 
         public Error Save(Error error)
         {
-            var state = error.Id != null ? EntityState.Added : EntityState.Modified;
-            _context.Entry(error).State = state;
+            if (error.Id == null)
+            {
+                _context.Errors.Add(error);
+            }
+            else
+            {
+                _context.Errors.Update(error);
+            }
             _context.SaveChanges();
             
             return error;
         }
 
-        public void Unarchive(Error error)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

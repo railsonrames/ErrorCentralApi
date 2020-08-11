@@ -22,12 +22,7 @@ namespace ErrorCentralApi.Services
         {
             return _context.Users.Find(id);
         }
-
-        public IList<User> GetAll()
-        {
-            return _context.Users.ToList();
-        }
-
+        
         public User Save(User user)
         {
             _context.Users.Add(user);
@@ -35,11 +30,5 @@ namespace ErrorCentralApi.Services
             return user;
         }
 
-        public User Update(User user)
-        {
-            _context.Users.Update(user);
-            _context.SaveChanges();
-            return user;
-        }
     }
 }

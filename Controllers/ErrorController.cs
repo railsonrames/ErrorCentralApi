@@ -8,9 +8,9 @@ using ErrorCentralApi.Models;
 
 namespace ErrorCentralApi.Controllers
 {
-    [Route("api/[controller]")]    
+    [Route("api/v1/[controller]")]    
     [ApiController]
-    public class ErrorController: ControllerBase
+    public class ErrorController : Controller
     {
         private readonly IErrorService _service;
         private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ namespace ErrorCentralApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ErrorDTO>> GetErrors()
+        public ActionResult<IEnumerable<ErrorDTO>> Get()
         {
             var errors = _service.GetAll();
             if (errors == null)
@@ -38,7 +38,7 @@ namespace ErrorCentralApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Error> SaveError([FromBody] ErrorDTO value)
+        public ActionResult<Error> Save([FromBody] ErrorDTO value)
         {
             if (!ModelState.IsValid)
             {
@@ -47,7 +47,12 @@ namespace ErrorCentralApi.Controllers
             var error = _mapper.Map<Error>(value);
             return Ok(_mapper.Map<ErrorDTO>(_service.Save(error)));
         }
+        
+        // [HttpDelete]
+        // public ActionResult<string> Delete(string id)
+        // {
 
+        // }
 
     }
 }
