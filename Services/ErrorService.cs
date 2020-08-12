@@ -7,7 +7,7 @@ namespace ErrorCentralApi.Services
 {
     public class ErrorService : IErrorService
     {
-        private ErrorCentralDataContext _context;
+        private readonly ErrorCentralDataContext _context;
         public ErrorService(ErrorCentralDataContext context)
         {
             this._context = context;
@@ -34,24 +34,12 @@ namespace ErrorCentralApi.Services
             }
             return false;
         }
-
         public bool Delete(Error error)
         {
             var err = _context.Errors.FirstOrDefault(e => e.Id == error.Id);
-            if (err != null)
-            {
-                _context.Errors.Remove(err);
-                _context.SaveChanges();
-                return true;
-            }
-            return false;
-        }
-        public bool Delete(Guid id)
-        {
-            var error = _context.Errors.FirstOrDefault(e => e.Id == id);
             if(error != null)
             {
-                _context.Errors.Remove(error);
+                _context.Errors.Remove(err);
                 _context.SaveChanges();
                 return true;
             }
@@ -68,12 +56,24 @@ namespace ErrorCentralApi.Services
             return _context.Errors.Where(e => e.Origin == origin).ToList();
         }
 
-        public IList<Error> FindByLevelType(string type)
+        public IList<Error> FindByLevelType(LevelType type)
         {
-            return _context.Errors.Where(e => e.LevelType.ToString() == type).ToList();
+            return _context.Errors.Where(e => e.LevelType == type).ToList();
         }
 
-       
+        public IList<Error> FindByEnvironment(Models.Environment environment)
+        {
+            var result = _context.Errors.Where(e => e.Environment == environment).ToList();
+            return result;
+        }
+
+        public IList<Error> FindByEnvironment(string environment, string orderBy)
+        {
+            return _context.Errors
+                .Where(e => e.Environment.ToString() == environment)
+                .OrderBy(e => e.LevelType)
+                .ToList();
+        }
 
         public Error Save(Error error)
         {
@@ -88,6 +88,14 @@ namespace ErrorCentralApi.Services
             _context.SaveChanges();
             
             return error;
+        }
+
+        private int Frequency(string levelType)
+        {
+            return _context.Errors
+                .Where(e => e.LevelType.ToString() == levelType)
+                .GroupBy(e => e.LevelType)
+                .Count();
         }
 
     }

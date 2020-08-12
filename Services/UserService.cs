@@ -8,7 +8,7 @@ namespace ErrorCentralApi.Services
 {
     public class UserService : IUserService
     {
-        private ErrorCentralDataContext _context;
+        private readonly ErrorCentralDataContext _context;
         public UserService(ErrorCentralDataContext context)
         {
             this._context = context;

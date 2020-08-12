@@ -14,6 +14,7 @@ using ErrorCentralApi.Models;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using ErrorCentralApi.Services;
+using Microsoft.OpenApi.Models;
 
 namespace ErrorCentralApi
 {
@@ -31,6 +32,15 @@ namespace ErrorCentralApi
     {
       services.AddDbContext<ErrorCentralDataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("AzureErrorCentralDataBaseServer")));
       services.AddControllers();
+      services.AddSwaggerGen(
+        x => x.SwaggerDoc("v1", 
+        new OpenApiInfo 
+        {
+          Title = "ErrorCentralAPI",
+          Version = "v1",
+          Description = "Projeto API de uma Central de Logs - Wiz e Codenation"
+        })
+      );
       services.AddAutoMapper(typeof(Startup));
       services.AddScoped<IErrorService, ErrorService>();
     }
@@ -42,6 +52,12 @@ namespace ErrorCentralApi
       {
         app.UseDeveloperExceptionPage();
       }
+
+      app.UseSwagger();
+      app.UseSwaggerUI(c => 
+        {
+          c.SwaggerEndpoint(url:"/swagger/v1/swagger.json", name:"ErrorCenter API v1");
+        });
 
       app.UseHttpsRedirection();
 

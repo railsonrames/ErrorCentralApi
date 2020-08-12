@@ -2,7 +2,7 @@ using System;
 
 namespace ErrorCentralApi.Models
 {
-  public enum Environment
+    public enum Environment
   {
     production, homologation, development
   }

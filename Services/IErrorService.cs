@@ -8,9 +8,10 @@ namespace ErrorCentralApi.Services
     {
         IList<Error> GetAll();
         Error FindById(Guid id);
-        IList<Error> FindByLevelType(string type);
+        IList<Error> FindByLevelType(LevelType type);
         IList<Error> FindByOrigin(string origin);
         IList<Error> FindByDescription(string description);
+        IList<Error> FindByEnvironment(Models.Environment environment);
         Error Save(Error error);
         bool Delete(Error error);
         bool Archive(Error error);
