@@ -19,7 +19,10 @@ namespace ErrorCentralApi
         public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource>() { 
-                new ApiResource("centralerror", "Central de Erros API v1")
+                new ApiResource(
+                    name: "centralerror", 
+                    displayName: "Central de Erros API v1"
+                )
             };            
         }
 
@@ -41,32 +44,5 @@ namespace ErrorCentralApi
                 }
             };
         }
-
-        // public static List<TestUser> GetUsers()
-        // {            
-        //     return new List<TestUser>
-        //     {
-        //         new TestUser
-        //         {
-        //             SubjectId = "1",
-        //             Username = "alice",
-        //             Password = "password",
-        //             Claims = new [] { 
-        //                 new Claim(ClaimTypes.Role, "admin"), 
-        //                 new Claim(ClaimTypes.Email, "alice@mail.com")
-        //             }
-        //         },
-        //         new TestUser
-        //         {
-        //             SubjectId = "2",
-        //             Username = "bob",
-        //             Password = "password",
-        //             Claims = new [] { 
-        //                 new Claim(ClaimTypes.Role, "user"), 
-        //                 new Claim(ClaimTypes.Email, "bob@mail.com")
-        //             }
-        //         }
-        //     };
-        // }
     }
 }

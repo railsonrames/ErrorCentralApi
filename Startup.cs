@@ -51,8 +51,8 @@ namespace ErrorCentralApi
       //   .AddProfileService<UserProfileService>();
       services.AddScoped<IErrorService, ErrorService>();  
       services.AddScoped<IUserService, UserService>();
-      services.AddTransient<IProfileService, UserProfileService>();
-      services.AddTransient<IResourceOwnerPasswordValidator, PasswordValidatorService>();
+      services.AddScoped<IProfileService, UserProfileService>();
+      services.AddScoped<IResourceOwnerPasswordValidator, PasswordValidatorService>();
 
       services.AddIdentityServer()
         .AddDeveloperSigningCredential()

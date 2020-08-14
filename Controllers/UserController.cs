@@ -3,11 +3,13 @@ using AutoMapper;
 using ErrorCentralApi.DTOs;
 using ErrorCentralApi.Models;
 using ErrorCentralApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ErrorCentralApi.Controllers
 {
     [Route("/api/v1/[controller]")]
+    [Authorize]
     [ApiController]
     public class UserController : Controller
     {

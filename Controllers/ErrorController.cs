@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using ErrorCentralApi.Models;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ErrorCentralApi.Controllers
 {
-    [Route("api/v1/[controller]")]    
+    [Route("api/v1/[controller]")]
+    [Authorize]  
     [ApiController]
     public class ErrorController : Controller
     {
