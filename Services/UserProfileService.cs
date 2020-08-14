@@ -41,8 +41,10 @@ namespace ErrorCentralApi.Services
         public static Claim[] GetUserClaims(User user)
         {
             string role = "User";
-            if (user.Email == "tegglestone9@blog.com")
+            if (user.Email == "wizadmin@codenation.com")
+            {
                 role = "Admin";
+            }
 
             return new []
             {

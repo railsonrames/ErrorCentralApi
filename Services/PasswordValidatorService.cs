@@ -18,8 +18,8 @@ namespace ErrorCentralApi.Services
         public Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {   
             var user = _dbContext
-                .Users.FirstOrDefault(u => u.Email.Equals(context.UserName));
-            if (user != null && user.Password.Equals(context.Password.Sha256()))
+                .Users.FirstOrDefault(u => u.Email == context.UserName);
+            if (user != null && user.Password == context.Password.Sha256())
             {
                 context.Result = new GrantValidationResult(
                     subject: user.Id.ToString(),

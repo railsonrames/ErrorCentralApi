@@ -44,16 +44,30 @@ namespace ErrorCentralApi
         })
       );
       services.AddAutoMapper(typeof(Startup));
+      // services.AddIdentityServer()
+      //   .AddInMemoryIdentityResources(IdentityConfiguration.GetIdentityResources())
+      //   .AddInMemoryApiResources(IdentityConfiguration.GetApiResources())
+      //   .AddInMemoryClients(IdentityConfiguration.GetClients())
+      //   .AddProfileService<UserProfileService>();
+      services.AddScoped<IErrorService, ErrorService>();  
+      services.AddScoped<IUserService, UserService>();
+      services.AddTransient<IProfileService, UserProfileService>();
+      services.AddTransient<IResourceOwnerPasswordValidator, PasswordValidatorService>();
+
       services.AddIdentityServer()
+        .AddDeveloperSigningCredential()
         .AddInMemoryIdentityResources(IdentityConfiguration.GetIdentityResources())
-        .AddInMemoryApiResources(IdentityConfiguration.GetApis())
+        .AddInMemoryApiResources(IdentityConfiguration.GetApiResources())
         .AddInMemoryClients(IdentityConfiguration.GetClients())
         .AddProfileService<UserProfileService>();
-        
-      services.AddScoped<IProfileService, UserProfileService>();
-      services.AddScoped<IResourceOwnerPasswordValidator, PasswordValidatorService>();
-      services.AddScoped<IErrorService, ErrorService>();
-      services.AddScoped<IUserService, UserService>();
+
+      services.AddAuthentication("Bearer")
+        .AddIdentityServerAuthentication(options =>
+          {
+            options.Authority = "https://localhost:5001"; 
+            options.RequireHttpsMetadata = false;                      
+            options.ApiName = "errorcentralapi";                   
+          });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
