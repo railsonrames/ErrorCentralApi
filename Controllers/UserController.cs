@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ErrorCentralApi.Controllers
 {
     [Route("/api/v1/[controller]")]
-    [Authorize]
+    // [Authorize]
     [ApiController]
     public class UserController : Controller
     {

@@ -66,7 +66,7 @@ namespace ErrorCentralApi
           {
             options.Authority = "https://localhost:5001"; 
             options.RequireHttpsMetadata = false;                      
-            options.ApiName = "errorcentralapi";                   
+            options.ApiName = "centralerror";                   
           });
     }
 

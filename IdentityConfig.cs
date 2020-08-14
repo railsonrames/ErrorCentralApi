@@ -31,10 +31,10 @@ namespace ErrorCentralApi
             return new List<Client>() { 
                 new Client
                 {
-                    ClientId = "centralerror.api_client",
+                    ClientId = "wizcodenation",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     ClientSecrets = {
-                        new Secret("centralerror.api_secret".Sha256())
+                        new Secret("wizcodenation".Sha256())
                     },
                     AllowedScopes = {  
                         IdentityServerConstants.StandardScopes.OpenId,
