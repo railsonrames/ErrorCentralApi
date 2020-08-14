@@ -79,7 +79,6 @@ namespace ErrorCentralApi.Controllers
             }
             var error = _mapper.Map<Error>(value);
             return Created(nameof(error.Id), _mapper.Map<ErrorDTO>(_service.Save(error)));
-            // return Ok(_mapper.Map<ErrorDTO>(_service.Save(error)));
         }
 
         [HttpPut("{id:guid}/archive")]

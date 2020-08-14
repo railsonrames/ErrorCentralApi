@@ -15,6 +15,8 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using ErrorCentralApi.Services;
 using Microsoft.OpenApi.Models;
+using IdentityServer4.Services;
+using IdentityServer4.Validation;
 
 namespace ErrorCentralApi
 {
@@ -42,7 +44,16 @@ namespace ErrorCentralApi
         })
       );
       services.AddAutoMapper(typeof(Startup));
+      services.AddIdentityServer()
+        .AddInMemoryIdentityResources(IdentityConfiguration.GetIdentityResources())
+        .AddInMemoryApiResources(IdentityConfiguration.GetApis())
+        .AddInMemoryClients(IdentityConfiguration.GetClients())
+        .AddProfileService<UserProfileService>();
+        
+      services.AddScoped<IProfileService, UserProfileService>();
+      services.AddScoped<IResourceOwnerPasswordValidator, PasswordValidatorService>();
       services.AddScoped<IErrorService, ErrorService>();
+      services.AddScoped<IUserService, UserService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +73,8 @@ namespace ErrorCentralApi
       app.UseHttpsRedirection();
 
       app.UseRouting();
+
+      app.UseIdentityServer();
 
       app.UseAuthorization();
 

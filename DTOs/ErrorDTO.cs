@@ -12,7 +12,6 @@ namespace ErrorCentralApi.DTOs
         public string Origin { get; set; }
         public bool ArchiveRecord { get; set; }
         public DateTime CreatedAt { get; set; }
-        // public Environment Environment { get; set; }
         
     }
 }

@@ -20,7 +20,7 @@ namespace ErrorCentralApi.Services
 
         public Error FindById(Guid id)
         {
-            return _context.Errors.Find(id);
+            return _context.Errors.FirstOrDefault(e => e.Id == id);
         }
 
         public bool Archive(Error error)
@@ -90,13 +90,13 @@ namespace ErrorCentralApi.Services
             return error;
         }
 
-        private int Frequency(string levelType)
-        {
-            return _context.Errors
-                .Where(e => e.LevelType.ToString() == levelType)
-                .GroupBy(e => e.LevelType)
-                .Count();
-        }
+        // private int Frequency(string levelType)
+        // {
+        //     return _context.Errors
+        //         .Where(e => e.LevelType.ToString() == levelType)
+        //         .GroupBy(e => e.LevelType)
+        //         .Count();
+        // }
 
     }
 }

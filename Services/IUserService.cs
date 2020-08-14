@@ -9,5 +9,6 @@ namespace ErrorCentralApi.Services
         User FindById(Guid id);
         User FindByEmail(string email);
         User Save(User user);
+        void Delete(User user);
     }
 }

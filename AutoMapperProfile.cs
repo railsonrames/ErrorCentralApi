@@ -1,6 +1,5 @@
 
 using AutoMapper;
-using AutoMapper.Extensions.EnumMapping;
 using ErrorCentralApi.DTOs;
 using ErrorCentralApi.Models;
 
