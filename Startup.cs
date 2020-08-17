@@ -79,7 +79,7 @@ namespace ErrorCentralApi
           c.SwaggerEndpoint(url:"/swagger/v1/swagger.json", name:"ErrorCenter API v1");
         });
 
-      // app.UseHttpsRedirection();
+      app.UseHttpsRedirection();
 
       app.UseRouting();
 
