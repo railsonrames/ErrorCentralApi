@@ -44,11 +44,6 @@ namespace ErrorCentralApi
         })
       );
       services.AddAutoMapper(typeof(Startup));
-      // services.AddIdentityServer()
-      //   .AddInMemoryIdentityResources(IdentityConfiguration.GetIdentityResources())
-      //   .AddInMemoryApiResources(IdentityConfiguration.GetApiResources())
-      //   .AddInMemoryClients(IdentityConfiguration.GetClients())
-      //   .AddProfileService<UserProfileService>();
       services.AddScoped<IErrorService, ErrorService>();  
       services.AddScoped<IUserService, UserService>();
       services.AddScoped<IProfileService, UserProfileService>();
@@ -62,11 +57,11 @@ namespace ErrorCentralApi
         .AddProfileService<UserProfileService>();
 
       services.AddAuthentication("Bearer")
-        .AddIdentityServerAuthentication(options =>
+        .AddJwtBearer(options =>
           {
             options.Authority = "https://localhost:5001"; 
             options.RequireHttpsMetadata = false;                      
-            options.ApiName = "centralerror";                   
+            options.Audience = "centralerror";                 
           });
     }
 
@@ -84,7 +79,7 @@ namespace ErrorCentralApi
           c.SwaggerEndpoint(url:"/swagger/v1/swagger.json", name:"ErrorCenter API v1");
         });
 
-      app.UseHttpsRedirection();
+      // app.UseHttpsRedirection();
 
       app.UseRouting();
 

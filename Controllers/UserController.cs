@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ErrorCentralApi.Controllers
 {
     [Route("/api/v1/[controller]")]
-    // [Authorize]
+    [Authorize]
     [ApiController]
     public class UserController : Controller
     {
@@ -46,6 +46,7 @@ namespace ErrorCentralApi.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult<string> Create([FromBody] UserDTO value)
         {
             if(!ModelState.IsValid)

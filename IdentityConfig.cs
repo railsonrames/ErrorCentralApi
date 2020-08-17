@@ -12,7 +12,9 @@ namespace ErrorCentralApi
         {
             return new IdentityResource[]
             {
-                new IdentityResources.OpenId()              
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
+                new IdentityResources.Email()              
             };
         }
 
@@ -37,8 +39,7 @@ namespace ErrorCentralApi
                         new Secret("wizcodenation".Sha256())
                     },
                     AllowedScopes = {  
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        "centralerror"
+                        IdentityServerConstants.StandardScopes.OpenId
                     },
                     AlwaysIncludeUserClaimsInIdToken = true
                 }
